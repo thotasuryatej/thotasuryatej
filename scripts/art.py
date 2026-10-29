@@ -1,9 +1,10 @@
 """
-Contribution graph and stats card for the profile README, drawn from the public contribution calendar.
+Contribution graph and stats card for the profile README, drawn from this year's public contribution calendar.
 
     python scripts/art.py <github-user> [saved-calendar.html]
 
-Reads https://github.com/users/<user>/contributions (public, no token), saves the days to data/contributions.json
+Reads https://github.com/users/<user>/contributions for 1 Jan to 31 Dec of the current year (public, no token),
+saves the days so far to data/contributions.json
 and writes contrib.svg and stats.svg. A saved copy of that page can be passed instead of fetching it. Standard library only. Every number on the card is counted from those days.
 """
 import calendar
@@ -26,11 +27,12 @@ LEVELS = ['#24211d', '#4f3a1d', '#86602a', '#c28c3c', '#f0be64']
 MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
 
 
-def fetch(user, saved=None):
+def fetch(user, year, saved=None):
     if saved:
         html = Path(saved).read_text(encoding='utf-8')
     else:
-        req = urllib.request.Request(f'https://github.com/users/{user}/contributions', headers={'User-Agent': 'profile-art'})
+        url = f'https://github.com/users/{user}/contributions?from={year}-01-01&to={year}-12-31'
+        req = urllib.request.Request(url, headers={'User-Agent': 'profile-art'})
         html = urllib.request.urlopen(req, timeout=30).read().decode('utf-8')
     # Each day is a cell with its date, level and id; its count is in the tooltip that points at that id
     counts = {}
@@ -75,7 +77,7 @@ def frame(w, h, title):
     ]
 
 
-def heatmap(days, user):
+def heatmap(days, user, today):
     cell, gap, left, top = 13, 3, 46, 80
     first = date.fromisoformat(days[0]['date'])
     offset = (first.weekday() + 1) % 7  # weeks start on Sunday, as on GitHub
@@ -83,6 +85,7 @@ def heatmap(days, user):
     w = left + weeks * (cell + gap) + 24
     h = top + 7 * (cell + gap) + 44
     total = sum(d['count'] for d in days)
+    year = days[0]['date'][:4]
     out = frame(w, h, f'{user}@github: ~$ ./contributions.sh')
     out.insert(0, (
         '<style>.c{transform-box:fill-box;transform-origin:center;opacity:0;animation:pop .5s ease-out both}'
@@ -90,7 +93,7 @@ def heatmap(days, user):
         '@media (prefers-reduced-motion: reduce){.c{opacity:1!important;animation:none!important}}</style>'
     ))
     out.append(f'<text x="{left}" y="52" fill="{TEXT}" font-size="14" font-weight="700">{total:,} contributions'
-               f'<tspan fill="{MUTED}" font-weight="400"> in the last year</tspan></text>')
+               f'<tspan fill="{MUTED}" font-weight="400"> in {year}</tspan></text>')
     for row, name in ((1, 'Mon'), (3, 'Wed'), (5, 'Fri')):
         out.append(f'<text x="12" y="{top + row * (cell + gap) + 10}" fill="{MUTED}" font-size="10">{name}</text>')
     month, labelled = None, -9
@@ -105,6 +108,11 @@ def heatmap(days, user):
                 out.append(f'<text x="{x}" y="{top - 6}" fill="{MUTED}" font-size="10">{calendar.month_abbr[day.month]}</text>')
             if row == 0:
                 month = day.month
+        # Days still to come are outlines only
+        if d['date'] > today:
+            out.append(f'<rect x="{x + 0.5}" y="{y + 0.5}" width="{cell - 1}" height="{cell - 1}" rx="3" fill="none" '
+                       f'stroke="{LEVELS[0]}"/>')
+            continue
         # Sweeps in column by column, with a ripple down each week
         delay = col * 0.035 + row * 0.03
         out.append(f'<rect class="c" x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{LEVELS[d["level"]]}" '
@@ -156,7 +164,7 @@ def stats(days, user, w=600, h=760):
     rows = [
         ('current streak', current, plural(current, 'day', 'days'), ARC),
         ('longest streak', longest, plural(longest, 'day', 'days'), AMBER),
-        ('last year', f'{total:,}', plural(total, 'contribution', 'contributions'), TEXT),
+        (f'in {days[0]["date"][:4]}', f'{total:,}', plural(total, 'contribution', 'contributions'), TEXT),
         ('active days', active, f'of {len(days)}', TEXT),
     ]
     y0 = 50
@@ -203,9 +211,12 @@ def svg(w, h, body):
 
 if __name__ == '__main__':
     user = sys.argv[1] if len(sys.argv) > 1 else 'thotasuryatej'
-    days = fetch(user, sys.argv[2] if len(sys.argv) > 2 else None)
+    today = date.today()
+    days = fetch(user, today.year, sys.argv[2] if len(sys.argv) > 2 else None)
+    # The calendar runs to 31 Dec; the stats only count the days that have happened
+    past = [d for d in days if d['date'] <= today.isoformat()]
     (ROOT / 'data').mkdir(exist_ok=True)
-    (ROOT / 'data' / 'contributions.json').write_text(json.dumps(days, indent=1) + '\n')
-    (ROOT / 'contrib.svg').write_text(heatmap(days, user), encoding='utf-8')
-    (ROOT / 'stats.svg').write_text(stats(days, user), encoding='utf-8')
-    print(f'{len(days)} days, {sum(d["count"] for d in days)} contributions')
+    (ROOT / 'data' / 'contributions.json').write_text(json.dumps(past, indent=1) + '\n')
+    (ROOT / 'contrib.svg').write_text(heatmap(days, user, today.isoformat()), encoding='utf-8')
+    (ROOT / 'stats.svg').write_text(stats(past, user), encoding='utf-8')
+    print(f'{len(past)} days so far in {today.year}, {sum(d["count"] for d in past)} contributions')

@@ -1,7 +1,7 @@
 name: Profile art
 
 # Redraws the contribution graph and stats card from the public contribution calendar: daily, on push, or by hand.
-# The ASCII portrait is not touched here; run scripts/portrait.py locally when the photo changes.
+# The ASCII portrait is not touched here; run scripts/portrait.py locally when the picture changes.
 
 'on':
   schedule:
