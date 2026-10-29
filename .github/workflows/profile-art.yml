@@ -1,0 +1,37 @@
+name: Profile art
+
+# Redraws the contribution graph and stats card from the public contribution calendar: daily, on push, or by hand.
+# The ASCII portrait is not touched here; run scripts/portrait.py locally when the photo changes.
+
+'on':
+  schedule:
+    - cron: '30 0 * * *' # 06:00 in Hyderabad
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths-ignore: ['contrib.svg', 'stats.svg', 'data/**']
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Draw the graph and stats card
+        run: python scripts/art.py ${{ github.repository_owner }}
+
+      - name: Commit if anything changed
+        run: |
+          git add contrib.svg stats.svg data/contributions.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Refresh profile art'
+          git push
