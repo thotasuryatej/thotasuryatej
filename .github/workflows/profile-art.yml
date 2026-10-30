@@ -1,11 +1,12 @@
 name: Profile art
 
-# Redraws the contribution graph and stats card from the public contribution calendar: daily, on push, or by hand.
+# Redraws the contribution graph and stats card from the public contribution calendar: every hour, on push, or by hand.
+# Hourly, so new commits in any repo show up within the hour; it only commits when the numbers changed.
 # The ASCII portrait is not touched here; run scripts/portrait.py locally when the picture changes.
 
 'on':
   schedule:
-    - cron: '30 0 * * *' # 06:00 in Hyderabad
+    - cron: '17 * * * *' # every hour, off the busy top of the hour
   workflow_dispatch: {}
   push:
     branches: [main]
