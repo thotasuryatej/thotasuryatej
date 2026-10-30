@@ -15,13 +15,22 @@ name: Profile art
 permissions:
   contents: write
 
+# One run at a time, so two never push over each other
+concurrency:
+  group: profile-art
+  cancel-in-progress: false
+
 jobs:
   draw:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # The branch tip, not the commit the run started on: a re-run of an older run would otherwise draw on a
+      # stale copy and have its push rejected
+      - uses: actions/checkout@v5
+        with:
+          ref: main
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
