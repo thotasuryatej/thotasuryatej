@@ -36,7 +36,7 @@
 ### `$ cat about.md`
 
 I build firmware for connected devices. At **PAT IoT Solutions** I write firmware for Wi-Fi smart switches and
-lighting dimmers on ESP32, ESP8266 and Nuvoton MS51 microcontrollers, and I'm building a **Matter-based hub** that
+lighting dimmers on ESP32, ESP8266 and Nuvoton microcontrollers, and I'm building a **Matter-based hub** that
 brings those devices to Alexa, Google and Apple's smart-home ecosystems.
 
 I like problems where hardware limits are real — tight memory, timing-critical events, devices that have to keep
@@ -47,7 +47,7 @@ working after the demo ends.
 | Project | What it is |
 | --- | --- |
 | **Matter Smart-Home Hub** *(private)* | Case study of my role building ESP32-S3 firmware for a commercial smart-home hub that brings existing devices into Matter (Apple Home, Google Home, Alexa). Source and design details are proprietary. |
-| **IoT Telemetry Device Agent** *(private)* | C++17 firmware agent (simulated) that buffers sensor data on flash and uploads it reliably over a flaky link — ring buffer with crash-safe A/B checkpoints, at-least-once delivery with seq_id dedup, capped exponential backoff, priority-aware backpressure. |
+| **IoT Telemetry Device Agent** *(private)* | C++17 firmware agent (simulated) that keeps sensor data safe on flash and uploads it reliably over a flaky link, through outages and power loss. |
 | [**IoT Traffic Management in Wi-Fi Networks**](https://github.com/thotasuryatej/Traffic-Management-in-WiFi-Networks) | B.Tech major project: FQ-CoDel scheduling for IoT traffic in Wi-Fi networks, simulated in NS-3, including a MANET routing-protocol comparison (AODV, OLSR, DSDV, DSR). |
 | [**ML Task Scheduling in Fog Computing**](https://github.com/thotasuryatej/vm-scheduling) | Comparing FCFS, Round Robin, SJF and PBKMS scheduling for fog-computing workloads, with the notebook, dataset and a results site. |
 
@@ -55,7 +55,7 @@ working after the demo ends.
 
 - **Firmware** — Embedded C / C++, RTOS-based task design (FreeRTOS, ESP-IDF), UART · I2C · SPI · GPIO
 - **Smart home** — Matter, Wi-Fi switches, dimming (Phase-Cut, PWM, DALI, analog)
-- **Microcontrollers** — ESP32, ESP32-S3, ESP8266, Nuvoton MS51
+- **Microcontrollers** — ESP32, ESP32-S3, ESP8266, Nuvoton
 - **Also** — Python, NS-3 network simulation, OpenCV / YOLO computer vision
 
 ### `$ cat experience.md`
