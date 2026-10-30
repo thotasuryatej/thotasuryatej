@@ -1,11 +1,11 @@
 <div align="center">
 
-<!-- contribution graph and stats card: real data, redrawn daily by .github/workflows/profile-art.yml (scripts/art.py)
+<!-- contribution graph and stats card: real data, redrawn hourly by .github/workflows/profile-art.yml (scripts/art.py)
      ascii portrait: typed out from an illustration of me (portrait-source.jpg) by scripts/portrait.py, run by hand when it changes -->
 
 <h3><code>thotasuryatej@github ~ $ ./contributions.sh</code></h3>
 
-<img src="./contrib.svg" width="860" alt="My GitHub contributions this year, refreshed daily" />
+<img src="./contrib.svg?v=bc6eb1f3" width="860" alt="My GitHub contributions this year, refreshed hourly" />
 
 <br>
 <br>
@@ -15,7 +15,7 @@
 <table>
 <tr>
 <td valign="top"><img src="./portrait.svg" width="420" alt="Colour ASCII portrait of Surya Tej Thota, typed out from an illustration of Surya Tej" /></td>
-<td valign="top"><img src="./stats.svg" width="420" alt="Contribution streaks and totals, refreshed daily" /></td>
+<td valign="top"><img src="./stats.svg?v=138f55c5" width="420" alt="Contribution streaks and totals, refreshed hourly" /></td>
 </tr>
 </table>
 

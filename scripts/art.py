@@ -5,9 +5,11 @@ Contribution graph and stats card for the profile README, drawn from this year's
 
 Reads https://github.com/users/<user>/contributions for 1 Jan to 31 Dec of the current year (public, no token),
 saves the days so far to data/contributions.json
-and writes contrib.svg and stats.svg. A saved copy of that page can be passed instead of fetching it. Standard library only. Every number on the card is counted from those days.
+and writes contrib.svg and stats.svg, then points the README at them with a ?v= that changes with their content, so
+browsers and GitHub fetch the new pictures instead of a saved copy. A saved copy of that page can be passed instead of fetching it. Standard library only. Every number on the card is counted from those days.
 """
 import calendar
+import hashlib
 import json
 import re
 import sys
@@ -219,4 +221,10 @@ if __name__ == '__main__':
     (ROOT / 'data' / 'contributions.json').write_text(json.dumps(past, indent=1) + '\n')
     (ROOT / 'contrib.svg').write_text(heatmap(days, user, today.isoformat()), encoding='utf-8')
     (ROOT / 'stats.svg').write_text(stats(past, user), encoding='utf-8')
+    readme = ROOT / 'README.md'
+    text = readme.read_text(encoding='utf-8')
+    for name in ('contrib.svg', 'stats.svg'):
+        v = hashlib.sha1((ROOT / name).read_bytes()).hexdigest()[:8]
+        text = re.sub(rf'\./{re.escape(name)}(\?v=\w+)?"', f'./{name}?v={v}"', text)
+    readme.write_text(text, encoding='utf-8', newline='')
     print(f'{len(past)} days so far in {today.year}, {sum(d["count"] for d in past)} contributions')
