@@ -46,8 +46,8 @@ working after the demo ends.
 
 | Project | What it is |
 | --- | --- |
-| [**Matter Smart-Home Hub**](https://github.com/thotasuryatej/IoT-Matter-Smart-Home-HUB) | Case study of ESP32-S3 bridge firmware that exposes a legacy switch/fan/curtain mesh as native Matter devices — connection pooling, memory placement across SRAM/PSRAM, and state sync across three control paths. |
-| [**IoT Telemetry Device Agent**](https://github.com/thotasuryatej/iot-telemetry-device-agent) | C++17 firmware agent (simulated) that buffers sensor data on flash and uploads it reliably over a flaky link — ring buffer with crash-safe A/B checkpoints, at-least-once delivery with seq_id dedup, capped exponential backoff, priority-aware backpressure. |
+| **Matter Smart-Home Hub** *(private)* | Case study of my role building ESP32-S3 firmware for a commercial smart-home hub that brings existing devices into Matter (Apple Home, Google Home, Alexa). Source and design details are proprietary. |
+| **IoT Telemetry Device Agent** *(private)* | C++17 firmware agent (simulated) that buffers sensor data on flash and uploads it reliably over a flaky link — ring buffer with crash-safe A/B checkpoints, at-least-once delivery with seq_id dedup, capped exponential backoff, priority-aware backpressure. |
 | [**IoT Traffic Management in Wi-Fi Networks**](https://github.com/thotasuryatej/Traffic-Management-in-WiFi-Networks) | B.Tech major project: FQ-CoDel scheduling for IoT traffic in Wi-Fi networks, simulated in NS-3, including a MANET routing-protocol comparison (AODV, OLSR, DSDV, DSR). |
 | [**ML Task Scheduling in Fog Computing**](https://github.com/thotasuryatej/vm-scheduling) | Comparing FCFS, Round Robin, SJF and PBKMS scheduling for fog-computing workloads, with the notebook, dataset and a results site. |
 
