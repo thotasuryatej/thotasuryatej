@@ -47,7 +47,7 @@ working after the demo ends.
 | Project | What it is |
 | --- | --- |
 | **Matter Smart-Home Hub** *(private)* | Case study of my role building ESP32-S3 firmware for a commercial smart-home hub that brings existing devices into Matter (Apple Home, Google Home, Alexa). Source and design details are proprietary. |
-| **IoT Telemetry Device Agent** *(private)* | C++17 firmware agent (simulated) that keeps sensor data safe on flash and uploads it reliably over a flaky link, through outages and power loss. |
+| **IoT Telemetry Device Agent** *(private)* | C++ firmware agent (simulated) that keeps sensor data safe on flash and uploads it reliably over a flaky link, through outages and power loss. |
 | [**IoT Traffic Management in Wi-Fi Networks**](https://github.com/thotasuryatej/Traffic-Management-in-WiFi-Networks) | B.Tech major project: FQ-CoDel scheduling for IoT traffic in Wi-Fi networks, simulated in NS-3, including a MANET routing-protocol comparison (AODV, OLSR, DSDV, DSR). |
 | [**ML Task Scheduling in Fog Computing**](https://github.com/thotasuryatej/vm-scheduling) | Comparing FCFS, Round Robin, SJF and PBKMS scheduling for fog-computing workloads, with the notebook, dataset and a results site. |
 
