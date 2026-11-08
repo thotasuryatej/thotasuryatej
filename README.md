@@ -5,7 +5,7 @@
 
 <h3><code>thotasuryatej@github ~ $ ./contributions.sh</code></h3>
 
-<img src="./contrib.svg?v=0e874556" width="860" alt="My GitHub contributions this year, refreshed hourly" />
+<img src="./contrib.svg?v=bd2ef0ee" width="860" alt="My GitHub contributions this year, refreshed hourly" />
 
 <br>
 <br>
@@ -15,7 +15,7 @@
 <table>
 <tr>
 <td valign="top"><img src="./portrait.svg" width="420" alt="Colour ASCII portrait of Surya Tej Thota, typed out from an illustration of Surya Tej" /></td>
-<td valign="top"><img src="./stats.svg?v=30d10fe6" width="420" alt="Contribution streaks and totals, refreshed hourly" /></td>
+<td valign="top"><img src="./stats.svg?v=f351cad4" width="420" alt="Contribution streaks and totals, refreshed hourly" /></td>
 </tr>
 </table>
 
