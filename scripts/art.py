@@ -13,6 +13,8 @@ import hashlib
 import json
 import re
 import sys
+import time
+import urllib.error
 import urllib.request
 from collections import Counter
 from datetime import date, timedelta
@@ -29,13 +31,33 @@ LEVELS = ['#24211d', '#4f3a1d', '#86602a', '#c28c3c', '#f0be64']
 MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
 
 
+def download(url, tries=4):
+    """The page, or None when GitHub keeps failing (a rate limit, an outage), so the run keeps the last art."""
+    for attempt in range(1, tries + 1):
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'profile-art'})
+            html = urllib.request.urlopen(req, timeout=30).read().decode('utf-8')
+            if 'ContributionCalendar-day' in html:
+                return html
+            reason = 'the page came back without the calendar'
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            reason = str(e)
+        print(f'Try {attempt} of {tries}: {reason}')
+        if attempt < tries:
+            time.sleep(20 * attempt)
+    return None
+
+
 def fetch(user, year, saved=None):
     if saved:
         html = Path(saved).read_text(encoding='utf-8')
     else:
         url = f'https://github.com/users/{user}/contributions?from={year}-01-01&to={year}-12-31'
-        req = urllib.request.Request(url, headers={'User-Agent': 'profile-art'})
-        html = urllib.request.urlopen(req, timeout=30).read().decode('utf-8')
+        html = download(url)
+        if html is None:
+            # A warning on the run instead of a failure: the art stays as it was and the next hour tries again.
+            print('::warning::Could not read the contribution calendar from GitHub; the art was left as it was.')
+            sys.exit(0)
     # Each day is a cell with its date, level and id; its count is in the tooltip that points at that id
     counts = {}
     for cell_id, text in re.findall(r'<tool-tip[^>]*\bfor="([^"]+)"[^>]*>([^<]*)', html):
