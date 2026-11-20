@@ -23,7 +23,7 @@
 
 <h3><code>thotasuryatej@github ~ $ ./links.sh</code></h3>
 
-<p><b>Embedded Software Developer · IoT Engineer · Hyderabad, India</b></p>
+<p><b>Embedded Software Engineer · IoT Product Engineer · Hyderabad, India</b></p>
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-suryatejpatel.in-141311?style=for-the-badge&logo=googlechrome&logoColor=F0BE64)](https://suryatejpatel.in)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-thota--suryatej-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thota-suryatej/)
