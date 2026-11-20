@@ -23,7 +23,8 @@
 
 <h3><code>thotasuryatej@github ~ $ ./links.sh</code></h3>
 
-<p><b>Embedded Software Engineer · IoT Product Engineer · Hyderabad, India</b></p>
+<p><b>Embedded Software Engineer · IoT Product Engineer · Hyderabad, India</b><br>
+<i>From chip to app: firmware, mobile &amp; web.</i></p>
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-suryatejpatel.in-141311?style=for-the-badge&logo=googlechrome&logoColor=F0BE64)](https://suryatejpatel.in)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-thota--suryatej-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thota-suryatej/)
@@ -35,9 +36,10 @@
 
 ### `$ cat about.md`
 
-I build firmware for connected devices. At **PAT IoT Solutions** I write firmware for Wi-Fi smart switches and
+I build connected products from chip to app. At **PAT IoT Solutions** I write firmware for Wi-Fi smart switches and
 lighting dimmers on ESP32, ESP8266 and Nuvoton microcontrollers, and I'm building a **Matter-based hub** that
-brings those devices to Alexa, Google and Apple's smart-home ecosystems.
+brings those devices to Alexa, Google and Apple's smart-home ecosystems. I also rebuilt and shipped the company's
+Flutter app on Google Play and the App Store, with Claude AI as my coding assistant.
 
 I like problems where hardware limits are real — tight memory, timing-critical events, devices that have to keep
 working after the demo ends.
